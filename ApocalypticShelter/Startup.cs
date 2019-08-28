@@ -33,7 +33,7 @@ namespace ApocalypticShelter
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+       
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -43,9 +43,9 @@ namespace ApocalypticShelter
                 c.SwaggerDoc("v1",
                     new Info
                     {
-                        Title = "Demo WebAPI",
+                        Title = "ApocalypticShelter API",
                         Version = "v1",
-                        Description = "Exemplo de API Rest criada com ASP.NET Core",
+                        Description = "API for a Post Apocalyptic Shelter",
                         Contact = new Contact
                         {
                             Name = "Mateus Costa",
@@ -68,19 +68,17 @@ namespace ApocalypticShelter
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
-            //var HOST = Environment.GetEnvironmentVariable("HOST");
-            //var USER = Environment.GetEnvironmentVariable("USER");
-            //var PASS = Environment.GetEnvironmentVariable("PASS");
+          
 
             services.AddScoped<IDbConnection>(c => ConnectionFactory.OpenPGConnection(Configuration["ConnectionStrings:DefaultConnection"]));
             services.AddScoped<IResourceRepository, ResourceRepository>();
             services.AddScoped<IResourceService, ResourceService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            //app.UseResponseCompression();
+            
             app.UseCors("AllowAll");
 
             var cultureInfo = new CultureInfo("pt-BR");
@@ -100,7 +98,6 @@ namespace ApocalypticShelter
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
