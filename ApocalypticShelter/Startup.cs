@@ -45,7 +45,7 @@ namespace ApocalypticShelter
                     {
                         Title = "ApocalypticShelter API",
                         Version = "v1",
-                        Description = "API for a Post Apocalyptic Shelter",
+                        Description = "An API for a Post Apocalyptic Shelter",
                         Contact = new Contact
                         {
                             Name = "Mateus Costa",
