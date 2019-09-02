@@ -8,35 +8,35 @@ using System.Threading.Tasks;
 
 namespace ApocalypticShelter.Services
 {
-    public class ResourceService : IResourceService
+    public class SurvivorService : ISurvivorService
     {
-        private readonly IResourceRepository _repository;
-        public ResourceService(IResourceRepository repository)
+        private readonly ISurvivorRepository _repository;
+        public SurvivorService(ISurvivorRepository repository)
         {
             _repository = repository;
         }
 
-        public Resource Get(int id)
+        public Survivor Get(int id)
         {
             return _repository.Get(id).Result;
         }
 
-        public IEnumerable<Resource> GetAll()
+        public IEnumerable<Survivor> GetAll()
         {
             return _repository.GetAll().Result;
         }
 
-        public Resource Create(Resource resource)
+        public Survivor Create(Survivor survivor)
         {
-            return _repository.Create(resource).Result;
+            return _repository.Create(survivor).Result;
         }
 
-        public Resource Update(Resource resource)
+        public Survivor Update(Survivor survivor)
         {
-            return _repository.Update(resource).Result;
+            return _repository.Update(survivor).Result;
         }
 
-        public Resource Delete(int id)
+        public Survivor Delete(int id)
         {
             return _repository.Delete(id).Result;
         }

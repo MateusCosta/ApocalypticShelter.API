@@ -10,5 +10,8 @@ namespace ApocalypticShelter.Repositories.Interfaces
     {
         Task<Resource> Get(int id);
         Task<IEnumerable<Resource>> GetAll();
+        Task<Resource> Create(Resource resource);
+        Task<Resource> Update(Resource resource);
+        Task<Resource> Delete(int id);
     }
 }

@@ -1,10 +1,9 @@
-﻿using ApocalypticShelter.Models;
+﻿using ApocalypticShelter.Data;
+using ApocalypticShelter.Models;
 using ApocalypticShelter.Repositories.Interfaces;
-using ApocalypticShelter.Repositories.Scripts;
-using Dapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,30 +11,48 @@ namespace ApocalypticShelter.Repositories
 {
     public class ResourceRepository : IResourceRepository
     {
-        protected IDbConnection Connection;
-        public ResourceRepository(IDbConnection Connection)
-        {
-            this.Connection = Connection;
-        }
+        private readonly StoreDataContext _context;
 
-        public async Task<Resource> Get(int id)
+        public ResourceRepository(StoreDataContext context)
         {
-            using (var con = Connection)
-            {
-                var parameter = new DynamicParameters();
-                parameter.Add("@ID", id, DbType.Int32, ParameterDirection.Input);
-                string sql = ResourceScript.Get;
-                return (await con.QueryAsync<Resource>(sql, parameter)).SingleOrDefault();
-            }
+            _context = context;
         }
 
         public async Task<IEnumerable<Resource>> GetAll()
         {
-            string sql = ResourceScript.All;
-            using (var con = Connection)
-            {
-                return await con.QueryAsync<Resource>(sql);
-            }
+            return _context.Resources.AsNoTracking().ToList();
         }
+
+        public async Task<Resource> Get(int id)
+        {
+            return _context.Resources.AsNoTracking().Where(x => x.Id == id).FirstOrDefault();
+        }
+
+        public async Task<Resource> Create(Resource resource)
+        {
+            _context.Resources.Add(resource);
+            _context.SaveChanges();
+
+            return resource;
+        }
+
+        public async Task<Resource> Update(Resource resource)
+        {
+            _context.Entry<Resource>(resource).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return resource;
+        }
+
+        public async Task<Resource> Delete(int Id)
+        {
+            var resource = _context.Resources.Find(Id);
+            _context.Resources.Remove(resource);
+            _context.SaveChanges();
+
+            return resource;
+        }
+
+
     }
 }

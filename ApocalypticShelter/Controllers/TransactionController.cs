@@ -10,16 +10,15 @@ namespace ApocalypticShelter.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResourceController : ControllerBase
+    public class TransactionController : ControllerBase
     {
-        private readonly IResourceService _service;
+        private readonly ITransactionService _service;
 
-        public ResourceController(IResourceService service)
+        public TransactionController(ITransactionService service)
         {
             _service = service;
         }
 
-        // GET api/resources
         [HttpGet]
         public IActionResult Get()
         {
@@ -34,7 +33,6 @@ namespace ApocalypticShelter.Controllers
             }
         }
 
-        // GET api/resources/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -50,11 +48,11 @@ namespace ApocalypticShelter.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateResource([FromBody]Resource resource)
+        public IActionResult CreateTransaction([FromBody]Transaction transaction)
         {
             try
             {
-                return Ok(_service.Create(resource));
+                return Ok(_service.Create(transaction));
             }
             catch (Exception ex)
             {
@@ -63,34 +61,7 @@ namespace ApocalypticShelter.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateResource([FromBody]Resource resource)
-        {
-            try
-            {
-                return Ok(_service.Update(resource));
-            }
-            catch (Exception ex)
-            {
-                var e = ex.GetBaseException();
-                return BadRequest(new { msg = e.Message });
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult DeleteResource(int id)
-        {
-            try
-            {
-                return Ok(_service.Delete(id));
-            }
-            catch (Exception ex)
-            {
-                var e = ex.GetBaseException();
-                return BadRequest(new { msg = e.Message });
-            }
-        }
-
+        
 
     }
 }

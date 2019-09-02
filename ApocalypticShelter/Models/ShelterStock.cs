@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace ApocalypticShelter.Models
 {
-    public class Survivor
+    public class ShelterStock
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string  HashPassword { get; set; }
+        public  Resource Resource { get; set; }
+        public int ResourceId { get; set; }
+        public Shelter Shelter { get; set; }
+        public int ShelterId { get; set; }
+        public int Quantity { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public int ShelterId { get; set; }
-        public Shelter Shelter { get; set; }
 
     }
 }

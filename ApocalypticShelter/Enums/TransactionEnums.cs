@@ -7,6 +7,6 @@ namespace ApocalypticShelter.Enums
 {
     public class TransactionEnums
     {
-        public enum Type { Acquire, Consume, Remove };
+        public enum Type { Acquire, Consume };
     }
 }

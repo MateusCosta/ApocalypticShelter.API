@@ -10,5 +10,10 @@ namespace ApocalypticShelter.Services.Interfaces
     {
         Resource Get(int ID);
         IEnumerable<Resource> GetAll();
+
+        Resource Create(Resource resource);
+
+        Resource Update(Resource resource);
+        Resource Delete(int ID);
     }
 }
