@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApocalypticShelter.Models;
 using ApocalypticShelter.Services.Interfaces;
+using ApocalypticShelter.ViewModels.TransactionViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApocalypticShelter.Controllers
@@ -48,7 +49,7 @@ namespace ApocalypticShelter.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTransaction([FromBody]Transaction transaction)
+        public IActionResult CreateTransaction([FromBody] CreateTransactionViewModel transaction)
         {
             try
             {

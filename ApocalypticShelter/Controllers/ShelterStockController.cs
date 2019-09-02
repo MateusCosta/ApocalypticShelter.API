@@ -10,15 +10,16 @@ namespace ApocalypticShelter.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResourceController : ControllerBase
+    public class ShelterStockController : ControllerBase
     {
-        private readonly IResourceService _service;
+        private readonly IShelterStockService _service;
 
-        public ResourceController(IResourceService service)
+        public ShelterStockController(IShelterStockService service)
         {
             _service = service;
         }
 
+        // GET api/resources
         [HttpGet]
         public IActionResult Get()
         {
@@ -33,6 +34,7 @@ namespace ApocalypticShelter.Controllers
             }
         }
 
+        // GET api/resources/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -48,11 +50,11 @@ namespace ApocalypticShelter.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateResource([FromBody]Resource resource)
+        public IActionResult CreateShelterStock([FromBody]ShelterStock shelterStock)
         {
             try
             {
-                return Ok(_service.Create(resource));
+                return Ok(_service.Create(shelterStock));
             }
             catch (Exception ex)
             {
@@ -62,11 +64,11 @@ namespace ApocalypticShelter.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateResource([FromBody]Resource resource)
+        public IActionResult UpdateShelterStock([FromBody]ShelterStock shelterStock)
         {
             try
             {
-                return Ok(_service.Update(resource));
+                return Ok(_service.Update(shelterStock));
             }
             catch (Exception ex)
             {
@@ -76,10 +78,9 @@ namespace ApocalypticShelter.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteResource(int id)
+        public IActionResult DeleteShelterStock(int id)
         {
-            try
-            { 
+            try { 
                 return Ok(_service.Delete(id));
             }
             catch (Exception ex)

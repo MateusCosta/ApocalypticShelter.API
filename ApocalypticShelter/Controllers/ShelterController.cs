@@ -10,11 +10,11 @@ namespace ApocalypticShelter.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResourceController : ControllerBase
+    public class ShelterController : ControllerBase
     {
-        private readonly IResourceService _service;
+        private readonly IShelterService _service;
 
-        public ResourceController(IResourceService service)
+        public ShelterController(IShelterService service)
         {
             _service = service;
         }
@@ -48,11 +48,11 @@ namespace ApocalypticShelter.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateResource([FromBody]Resource resource)
+        public IActionResult CreateShelter([FromBody]Shelter shelter)
         {
             try
             {
-                return Ok(_service.Create(resource));
+                return Ok(_service.Create(shelter));
             }
             catch (Exception ex)
             {
@@ -62,11 +62,11 @@ namespace ApocalypticShelter.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateResource([FromBody]Resource resource)
+        public IActionResult UpdateShelter([FromBody]Shelter shelter)
         {
             try
             {
-                return Ok(_service.Update(resource));
+                return Ok(_service.Update(shelter));
             }
             catch (Exception ex)
             {
@@ -76,10 +76,9 @@ namespace ApocalypticShelter.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteResource(int id)
+        public IActionResult DeleteShelter(int id)
         {
-            try
-            { 
+            try { 
                 return Ok(_service.Delete(id));
             }
             catch (Exception ex)
