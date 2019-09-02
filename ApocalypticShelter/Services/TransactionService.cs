@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApocalypticShelter.Enums;
+using ApocalypticShelter.ViewModels;
+
 namespace ApocalypticShelter.Services
 {
     public class TransactionService : ITransactionService
@@ -29,7 +31,7 @@ namespace ApocalypticShelter.Services
             return _repository.GetAll().Result;
         }
 
-        public Transaction Create(CreateTransactionViewModel model)
+        public ResultViewModel Create(CreateTransactionViewModel model)
         {
             var create = false;
             var stock = _stockRepository.GetStock(model.ShelterId, model.ResourceId).Result;
@@ -47,6 +49,7 @@ namespace ApocalypticShelter.Services
             var transaction = new Transaction();
             transaction.Type = model.Type;
             transaction.QuantityMoved = model.QuantityMoved;
+            
 
             transaction.InitialBalance = stock.Quantity;
             if(transaction.Type == TransactionEnums.Type.Acquire)
@@ -71,8 +74,14 @@ namespace ApocalypticShelter.Services
             {
                 _stockRepository.Update(stock);
             }
-           
-            return _repository.Create(transaction).Result;
+
+            var newTransaction = _repository.Create(transaction).Result;
+            return new ResultViewModel
+            {
+                Success = true,
+                Message = "Transacao feita com sucesso!",
+                Data = newTransaction
+            };
         }
 
         public Transaction Delete(int Id)

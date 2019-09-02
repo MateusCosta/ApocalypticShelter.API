@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApocalypticShelter.Models;
+using ApocalypticShelter.ViewModels;
 using ApocalypticShelter.ViewModels.TransactionViewModels;
 
 namespace ApocalypticShelter.Services.Interfaces
@@ -11,7 +12,7 @@ namespace ApocalypticShelter.Services.Interfaces
     {
         Transaction Get(int ID);
         IEnumerable<Transaction> GetAll();
-        Transaction Create(CreateTransactionViewModel transaction);
+        ResultViewModel Create(CreateTransactionViewModel transaction);
         Transaction Delete(int ID);
 
     }

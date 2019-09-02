@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApocalypticShelter.Models;
 using ApocalypticShelter.Services.Interfaces;
+using ApocalypticShelter.ViewModels;
 using ApocalypticShelter.ViewModels.TransactionViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,12 +54,27 @@ namespace ApocalypticShelter.Controllers
         {
             try
             {
+                transaction.Validate();
+                if (transaction.Invalid)
+                {
+                    return BadRequest( new ResultViewModel
+                    {
+                        Success = false,
+                        Message = "Não foi possível inserir o produto",
+                        Data = transaction.Notifications
+                    });
+                }
                 return Ok(_service.Create(transaction));
             }
             catch (Exception ex)
             {
                 var e = ex.GetBaseException();
-                return BadRequest(new { msg = e.Message });
+                return BadRequest(new ResultViewModel
+                {
+                    Success = false,
+                    Message = "Ocorreu um erro. Contate o Administrador para mais informacoes",
+                    Data = null
+                });
             }
         }
 
