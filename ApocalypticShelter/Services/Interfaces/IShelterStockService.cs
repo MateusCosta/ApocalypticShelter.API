@@ -14,5 +14,7 @@ namespace ApocalypticShelter.Services.Interfaces
 
         ShelterStock Update(ShelterStock shelterStock);
         ShelterStock Delete(int Id);
+
+        ShelterStock GetStock(int shelterID, int resourceId);
     }
 }

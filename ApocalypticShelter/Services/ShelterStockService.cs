@@ -40,6 +40,11 @@ namespace ApocalypticShelter.Services
         {
             return _repository.Delete(id).Result;
         }
+        
+        public ShelterStock GetStock(int shelterId, int resourceId)
+        {
+            return _repository.GetStock(shelterId, resourceId).Result;
+        }
     }
 }
 

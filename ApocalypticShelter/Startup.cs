@@ -69,16 +69,28 @@ namespace ApocalypticShelter
                     .AllowCredentials());
             });
 
-            //Dependency Injection
+            #region Dependency Injection
             services.AddTransient<ITransactionRepository, TransactionRepository>();
             services.AddTransient<ITransactionService, TransactionService>();
+
             services.AddTransient<IResourceRepository, ResourceRepository>();
             services.AddTransient<IResourceService, ResourceService>();
 
+            services.AddTransient<IShelterRepository, ShelterRepository>();
+            services.AddTransient<IShelterService, ShelterService>();
+
+            services.AddTransient<IShelterStockRepository, ShelterStockRepository>();
+            services.AddTransient<IShelterStockService, ShelterStockService>();
+
+            services.AddTransient<ISurvivorRepository, SurvivorRepository>();
+            services.AddTransient<ISurvivorService, SurvivorService>();
+
             services.AddScoped<StoreDataContext, StoreDataContext>();
+
+            #endregion
         }
 
-        
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             

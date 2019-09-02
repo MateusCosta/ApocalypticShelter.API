@@ -49,5 +49,10 @@ namespace ApocalypticShelter.Repositories
 
             return shelterStock;
         }
+
+        public async Task<ShelterStock> GetStock(int shelterId, int resourceId)
+        {
+            return _context.ShelterStocks.AsNoTracking().Where(x => x.ShelterId == shelterId && x.ResourceId == resourceId).FirstOrDefault();
+        }
     }
 }

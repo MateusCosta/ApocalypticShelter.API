@@ -13,5 +13,6 @@ namespace ApocalypticShelter.Repositories.Interfaces
         Task<ShelterStock> Create(ShelterStock shelterStock);
         Task<ShelterStock> Update(ShelterStock shelterStock);
         Task<ShelterStock> Delete(int id);
+        Task<ShelterStock> GetStock(int shelterId, int resourceID);
     }
 }
