@@ -18,9 +18,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.AspNetCore.Swagger;
-using ApocalypticShelter.DB;
 using ApocalypticShelter.Services.Interfaces;
 using ApocalypticShelter.Services;
+using ApocalypticShelter.Data;
 
 namespace ApocalypticShelter
 {
@@ -68,11 +68,14 @@ namespace ApocalypticShelter
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
-          
 
-            services.AddScoped<IDbConnection>(c => ConnectionFactory.OpenPGConnection(Configuration["ConnectionStrings:DefaultConnection"]));
-            services.AddScoped<IResourceRepository, ResourceRepository>();
-            services.AddScoped<IResourceService, ResourceService>();
+            //Dependency Injection
+            services.AddTransient<ITransactionRepository, TransactionRepository>();
+            services.AddTransient<ITransactionService, TransactionService>();
+            services.AddTransient<IResourceRepository, ResourceRepository>();
+            services.AddTransient<IResourceService, ResourceService>();
+
+            services.AddScoped<StoreDataContext, StoreDataContext>();
         }
 
         
@@ -93,7 +96,7 @@ namespace ApocalypticShelter
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Demo WebAPI");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApocalypticShelter API");
                 });
             }
             else
